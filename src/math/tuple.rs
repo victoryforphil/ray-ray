@@ -1,3 +1,7 @@
+use std::ops::{Add, Div, Mul, Neg, Sub};
+
+const TUPLE_EPSILON: f64 = 0.00001;
+#[derive(Debug)]
 pub struct Tuple {
     pub x: f64,
     pub y: f64,
@@ -74,6 +78,92 @@ impl Tuple {
     }
 }
 
+impl From<[f64;4]> for Tuple{
+    fn from(value: [f64;4]) -> Self {
+        Tuple {
+            x: value[0],
+            y: value[1],
+            z: value[2],
+            w: value[3],
+        }
+    }
+}
+
+impl PartialEq for Tuple {
+    fn eq(&self, other: &Self) -> bool {
+        (self.x - other.x).abs() < f64::EPSILON
+            && (self.y - other.y).abs() < TUPLE_EPSILON
+            && (self.z - other.z).abs() < TUPLE_EPSILON
+            && (self.w - other.w).abs() < TUPLE_EPSILON
+    }
+}
+
+impl Add for Tuple {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Tuple {
+            x: self.x + other.x,
+            y: self.y + other.y,
+            z: self.z + other.z,
+            w: self.w + other.w,
+        }
+    }
+}
+
+impl Sub for Tuple {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
+        Tuple {
+            x: self.x - other.x,
+            y: self.y - other.y,
+            z: self.z - other.z,
+            w: self.w - other.w,
+        }
+    }
+}
+
+impl Neg for Tuple{
+    type Output = Self;
+
+    fn neg(self) -> Self::Output {
+        Tuple{
+            x: -self.x,
+            y: -self.y,
+            z: -self.z,
+            w: -self.w
+        }
+    }
+}
+
+impl Mul<f64> for Tuple{
+    type Output = Self;
+
+    fn mul(self, rhs: f64) -> Self::Output {
+        Tuple{
+            x: self.x * rhs,
+            y: self.y * rhs,
+            z: self.z * rhs,
+            w: self.w * rhs
+        }
+    }
+}
+
+impl Div<f64> for Tuple{
+    type Output = Self;
+
+    fn div(self, rhs: f64) -> Self::Output {
+        Tuple{
+            x: self.x / rhs,
+            y: self.y / rhs,
+            z: self.z / rhs,
+            w: self.w / rhs
+        }
+    }
+}
+
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -124,5 +214,84 @@ mod test {
 
         assert_eq!(tuple.is_point(), true);
         assert_eq!(tuple.is_vector(), false);
+    }
+
+    #[test]
+    pub fn test_tuple_equality() {
+        let tuple1 = Tuple::new(4.3, -4.2, 3.1, 1.0);
+        let tuple2 = Tuple::new(4.3, -4.2, 3.1, 1.0);
+        assert_eq!(tuple1, tuple2);
+    }
+
+    #[test]
+    pub fn test_tuple_addition() {
+        let tuple1 = Tuple::new(3.0, -2.0, 5.0, 1.0);
+        let tuple2 = Tuple::new(-2.0, 3.0, 1.0, 0.0);
+        let result = tuple1 + tuple2;
+        assert_eq!(result, Tuple::new(1.0, 1.0, 6.0, 1.0));
+    }
+
+    #[test]
+    pub fn test_point_subtraction() {
+        let point1 = Tuple::point(3.0, 2.0, 1.0);
+        let point2 = Tuple::point(5.0, 6.0, 7.0);
+
+        let ans = point1 - point2;
+        assert_eq!(ans.is_vector(), true);
+        assert_eq!(ans, Tuple::vector(-2.0, -4.0, -6.0));
+    }
+
+    #[test]
+    pub fn test_point_subtraction_vector(){
+        let p = Tuple::point(3.0, 2.0, 1.0);
+        let v = Tuple::vector(5.0, 6.0, 7.0);
+        let a = p - v;
+        assert_eq!(a.is_point(), true);
+        assert_eq!(a, Tuple::point(-2.0, -4.0, -6.0));
+    }
+
+    #[test]
+    pub fn test_vector_subtraction(){
+        let v1 = Tuple::vector(3.0, 2.0, 1.0);
+        let v2 = Tuple::vector(5.0, 6.0, 7.0);
+        let a  = v1 - v2;
+        assert_eq!(a.is_vector(), true);
+        assert_eq!(a, Tuple::vector(-2.0, -4.0, -6.));
+    }
+
+    #[test]
+    pub fn test_vector_subtract_zero_vector(){
+        let vz = Tuple::vector(0.0, 0.0, 0.0);
+        let v = Tuple::vector(1.0, -2.0, 3.0);
+        let a = vz - v;
+        assert_eq!(a.is_vector(), true);
+        assert_eq!(a, Tuple::vector(-1.0, 2.0, -3.0));
+    }
+
+    #[test]
+    pub fn test_negate_tuple(){
+        let a = Tuple::new(1.0, -2.0, 3.0, -4.0);
+        let n_a = -a;
+        assert_eq!(n_a, Tuple::new(-1.0, 2.0, -3.0, 4.0));
+    }
+
+    #[test]
+    pub fn test_scalar_tuple_mul(){
+        let t = Tuple::new(1.0, -2.0, 3.0, -4.0);
+        let a = t * 3.5;
+        assert_eq!(a, Tuple::new(3.5, -7.0, 10.5, -14.0));
+    }
+
+    #[test]
+    pub fn test_fraction_tuple_mul(){
+        let t: Tuple = [1.0, -2.0, 3.0, -4.0].into();
+        let a = t * 0.5;
+        assert_eq!(a, [0.5, -1.0, 1.5, -2.0].into())
+    }
+    #[test]
+    pub fn test_fraction_tuple_div(){
+        let t: Tuple = [1.0, -2.0, 3.0, -4.0].into();
+        let a = t / 2.0;
+        assert_eq!(a, [0.5, -1.0, 1.5, -2.0].into())
     }
 }
