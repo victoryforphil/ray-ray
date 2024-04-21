@@ -78,8 +78,8 @@ impl Tuple {
     }
 }
 
-impl From<[f64;4]> for Tuple{
-    fn from(value: [f64;4]) -> Self {
+impl From<[f64; 4]> for Tuple {
+    fn from(value: [f64; 4]) -> Self {
         Tuple {
             x: value[0],
             y: value[1],
@@ -124,49 +124,67 @@ impl Sub for Tuple {
     }
 }
 
-impl Neg for Tuple{
+impl Neg for Tuple {
     type Output = Self;
 
     fn neg(self) -> Self::Output {
-        Tuple{
+        Tuple {
             x: -self.x,
             y: -self.y,
             z: -self.z,
-            w: -self.w
+            w: -self.w,
         }
     }
 }
 
-impl Mul<f64> for Tuple{
+impl Mul<f64> for Tuple {
     type Output = Self;
 
     fn mul(self, rhs: f64) -> Self::Output {
-        Tuple{
+        Tuple {
             x: self.x * rhs,
             y: self.y * rhs,
             z: self.z * rhs,
-            w: self.w * rhs
+            w: self.w * rhs,
         }
     }
 }
 
-impl Div<f64> for Tuple{
+impl Div<f64> for Tuple {
     type Output = Self;
 
     fn div(self, rhs: f64) -> Self::Output {
-        Tuple{
+        Tuple {
             x: self.x / rhs,
             y: self.y / rhs,
             z: self.z / rhs,
-            w: self.w / rhs
+            w: self.w / rhs,
         }
     }
 }
 
+impl Tuple {
+    pub fn magnitude(&self) -> f64 {
+        (self.x.powi(2) + self.y.powi(2) + self.z.powi(2) + self.w.powi(2)).sqrt()
+    }
+}
 
+impl Tuple {
+    pub fn normalize(&self) -> Tuple {
+        let m = self.magnitude();
+        Tuple {
+            x: self.x / m,
+            y: self.y / m,
+            z: self.z / m,
+            w: self.w / m,
+        }
+    }
+}
 #[cfg(test)]
 mod test {
+
     use super::*;
+    use pretty_assertions::assert_eq;
 
     #[test]
     pub fn test_new_tuple_point() {
@@ -242,7 +260,7 @@ mod test {
     }
 
     #[test]
-    pub fn test_point_subtraction_vector(){
+    pub fn test_point_subtraction_vector() {
         let p = Tuple::point(3.0, 2.0, 1.0);
         let v = Tuple::vector(5.0, 6.0, 7.0);
         let a = p - v;
@@ -251,16 +269,16 @@ mod test {
     }
 
     #[test]
-    pub fn test_vector_subtraction(){
+    pub fn test_vector_subtraction() {
         let v1 = Tuple::vector(3.0, 2.0, 1.0);
         let v2 = Tuple::vector(5.0, 6.0, 7.0);
-        let a  = v1 - v2;
+        let a = v1 - v2;
         assert_eq!(a.is_vector(), true);
         assert_eq!(a, Tuple::vector(-2.0, -4.0, -6.));
     }
 
     #[test]
-    pub fn test_vector_subtract_zero_vector(){
+    pub fn test_vector_subtract_zero_vector() {
         let vz = Tuple::vector(0.0, 0.0, 0.0);
         let v = Tuple::vector(1.0, -2.0, 3.0);
         let a = vz - v;
@@ -269,29 +287,94 @@ mod test {
     }
 
     #[test]
-    pub fn test_negate_tuple(){
+    pub fn test_negate_tuple() {
         let a = Tuple::new(1.0, -2.0, 3.0, -4.0);
         let n_a = -a;
         assert_eq!(n_a, Tuple::new(-1.0, 2.0, -3.0, 4.0));
     }
 
     #[test]
-    pub fn test_scalar_tuple_mul(){
+    pub fn test_scalar_tuple_mul() {
         let t = Tuple::new(1.0, -2.0, 3.0, -4.0);
         let a = t * 3.5;
         assert_eq!(a, Tuple::new(3.5, -7.0, 10.5, -14.0));
     }
 
     #[test]
-    pub fn test_fraction_tuple_mul(){
+    pub fn test_fraction_tuple_mul() {
         let t: Tuple = [1.0, -2.0, 3.0, -4.0].into();
         let a = t * 0.5;
         assert_eq!(a, [0.5, -1.0, 1.5, -2.0].into())
     }
     #[test]
-    pub fn test_fraction_tuple_div(){
+    pub fn test_fraction_tuple_div() {
         let t: Tuple = [1.0, -2.0, 3.0, -4.0].into();
         let a = t / 2.0;
         assert_eq!(a, [0.5, -1.0, 1.5, -2.0].into())
+    }
+
+    #[test]
+    pub fn test_tuple_mangitude() {
+        {
+            let t = Tuple::vector(1.0, 0.0, 0.0);
+            let m = t.magnitude();
+            assert_eq!(m, 1.0);
+        }
+
+        {
+            let t = Tuple::vector(0.0, 1.0, 0.0);
+            let m = t.magnitude();
+            assert_eq!(m, 1.0);
+        }
+
+        {
+            let t = Tuple::vector(0.0, 0.0, 1.0);
+            let m = t.magnitude();
+            assert_eq!(m, 1.0);
+        }
+
+        {
+            let t = Tuple::vector(1.0, 2.0, 3.0);
+            let m = t.magnitude();
+            assert_eq!(m, (14.0_f64).sqrt());
+        }
+
+        {
+            let t = Tuple::vector(-1.0, -2.0, -3.0);
+            let m = t.magnitude();
+            assert_eq!(m, (14.0_f64).sqrt());
+        }
+    }
+
+    #[test]
+    pub fn test_tuple_normalize() {
+        {
+            let t = Tuple::vector(4.0, 0.0, 0.0);
+            let t_n = t.normalize();
+            assert_eq!(t_n, Tuple::vector(1.0, 0.0, 0.0))
+        }
+
+        {
+            let t = Tuple::vector(1.0, 2.0, 3.0);
+            let t_n = t.normalize();
+            assert_eq!(
+                t_n,
+                Tuple::vector(
+                    1.0 / (14.0_f64).sqrt(),
+                    2.0 / (14.0_f64).sqrt(),
+                    3.0 / (14.0_f64).sqrt()
+                )
+            )
+        }
+
+        {
+            let t = Tuple::vector(4.0, 0.0, 0.0);
+            let t_n = t.normalize();
+            assert_eq!(
+                t_n.magnitude(),
+                1.0,
+                "Normalize should have a magnitude of 1"
+            );
+        }
     }
 }
