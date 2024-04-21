@@ -1,7 +1,9 @@
+mod math;
+pub use math::*;
+
 fn main() {
     println!("Hello, world!");
 }
-
 
 #[cfg(test)]
 mod tests {
