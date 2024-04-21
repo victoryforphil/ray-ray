@@ -178,20 +178,18 @@ impl Tuple {
         }
     }
 
-    pub fn dot(&self, rhs: &Tuple) -> f64{
-        (self.x * rhs.x) + 
-        (self.y * rhs.y) + 
-        (self.z * rhs.z) + 
-        (self.w * rhs.z) 
+    pub fn dot(&self, rhs: &Tuple) -> f64 {
+        (self.x * rhs.x) + (self.y * rhs.y) + (self.z * rhs.z) + (self.w * rhs.z)
     }
 
-    pub fn cross(&self, rhs: &Tuple) -> Tuple{
-        Tuple::vector(self.y * rhs.z - self.z * rhs.y, 
-            self.z * rhs.x - self.x * rhs.z, 
-            self.x * rhs.y - self.y * rhs.x)
+    pub fn cross(&self, rhs: &Tuple) -> Tuple {
+        Tuple::vector(
+            self.y * rhs.z - self.z * rhs.y,
+            self.z * rhs.x - self.x * rhs.z,
+            self.x * rhs.y - self.y * rhs.x,
+        )
     }
 }
-
 
 #[cfg(test)]
 mod test {
@@ -392,7 +390,7 @@ mod test {
     }
 
     #[test]
-    pub fn test_tuple_dot(){
+    pub fn test_tuple_dot() {
         let a = Tuple::vector(1.0, 2.0, 3.0);
         let b = Tuple::vector(2.0, 3.0, 4.0);
         let dot = a.dot(&b);
@@ -400,7 +398,7 @@ mod test {
     }
 
     #[test]
-    pub fn test_tuple_cross(){
+    pub fn test_tuple_cross() {
         let a = Tuple::vector(1.0, 2.0, 3.0);
         let b = Tuple::vector(2.0, 3.0, 4.0);
         let cross_ab = a.cross(&b);

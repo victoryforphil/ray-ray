@@ -1,7 +1,6 @@
 mod math;
 pub use math::*;
 
-
 fn main() {
     println!("Hello, world!");
 }
