@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use ray_ray::{math::Tuple, rendering::{Canvas, PPMFile}};
+use ray_ray::{math::Tuple, rendering::{Canvas, PPMFile, RerunViewer}};
 
 use log::info;
 
@@ -70,6 +70,9 @@ impl ProjectileSim {
 pub fn main() {
     env_logger::init();
 
+    let rec = rerun::RecordingStreamBuilder::new("projectile_test").spawn().unwrap();
+ 
+rec.set_time_seconds("time", 0.0);
     let sim_res = ProjectileSim::run();
     info!(
         "Projectile Position @ tick ({}): {:?}",
@@ -78,7 +81,13 @@ pub fn main() {
 
     let ppm = PPMFile::from_canvas(&sim_res.canvas);
     ppm.save_file(&PathBuf::from("./projectile.ppm"));
-}
+
+   
+    rec.set_time_seconds("time", 1.0);
+    let rerun_image = RerunViewer::from_canvas(&sim_res.canvas);
+    rec.log("image/raw", &rerun_image).unwrap();
+
+}   
 
 #[cfg(test)]
 mod test {
