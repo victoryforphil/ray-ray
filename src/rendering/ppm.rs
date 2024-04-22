@@ -35,28 +35,26 @@ impl PPMFile {
                 let r = (px.r * 255.0) as u8;
                 let g = (px.g * 255.0) as u8;
                 let b = (px.b * 255.0) as u8;
-              
-                if row_string.len() >= 70 -3 {
+
+                if row_string.len() >= 70 - 3 {
                     self.rows.push(row_string.clone());
                     row_string = "".to_string();
                 }
 
                 row_string = row_string + format!("{} ", r).as_str();
 
-                if row_string.len() >= 70 -3 {
+                if row_string.len() >= 70 - 3 {
                     self.rows.push(row_string.clone());
                     row_string = "".to_string();
                 }
-                
+
                 row_string = row_string + format!("{} ", g).as_str();
-                if row_string.len() >= 70 -3 {
+                if row_string.len() >= 70 - 3 {
                     self.rows.push(row_string.clone());
                     row_string = "".to_string();
                 }
-                
+
                 row_string = row_string + format!("{} ", b).as_str();
-
-
             }
             self.rows.push(row_string);
         }
@@ -72,7 +70,7 @@ impl PPMFile {
         final_string
     }
 
-    pub fn save_file(&self, path: &PathBuf){
+    pub fn save_file(&self, path: &PathBuf) {
         let mut file = File::create(path).unwrap();
         file.write_all(self.to_string().as_bytes()).unwrap();
     }
@@ -123,12 +121,17 @@ mod test {
             ppm.rows[3],
             "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 "
         );
-        assert_eq!(ppm.rows[4], "153 255 204 153 255 204 153 255 204 153 255 204 153 ");
+        assert_eq!(
+            ppm.rows[4],
+            "153 255 204 153 255 204 153 255 204 153 255 204 153 "
+        );
         assert_eq!(
             ppm.rows[5],
             "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 "
         );
-        assert_eq!(ppm.rows[6], "153 255 204 153 255 204 153 255 204 153 255 204 153 ");
+        assert_eq!(
+            ppm.rows[6],
+            "153 255 204 153 255 204 153 255 204 153 255 204 153 "
+        );
     }
-
 }

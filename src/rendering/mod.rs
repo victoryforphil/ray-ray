@@ -1,7 +1,7 @@
 mod canvas;
 mod color;
-mod rerun;
 mod ppm;
+mod rerun;
 pub use canvas::*;
 pub use color::*;
 pub use ppm::*;
