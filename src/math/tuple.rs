@@ -167,7 +167,9 @@ impl Tuple {
     pub fn magnitude(&self) -> f64 {
         (self.x.powi(2) + self.y.powi(2) + self.z.powi(2) + self.w.powi(2)).sqrt()
     }
+}
 
+impl Tuple {
     pub fn normalize(&self) -> Tuple {
         let m = self.magnitude();
         Tuple {
@@ -177,20 +179,7 @@ impl Tuple {
             w: self.w / m,
         }
     }
-
-    pub fn dot(&self, rhs: &Tuple) -> f64 {
-        (self.x * rhs.x) + (self.y * rhs.y) + (self.z * rhs.z) + (self.w * rhs.z)
-    }
-
-    pub fn cross(&self, rhs: &Tuple) -> Tuple {
-        Tuple::vector(
-            self.y * rhs.z - self.z * rhs.y,
-            self.z * rhs.x - self.x * rhs.z,
-            self.x * rhs.y - self.y * rhs.x,
-        )
-    }
 }
-
 #[cfg(test)]
 mod test {
 
@@ -383,27 +372,9 @@ mod test {
             let t_n = t.normalize();
             assert_eq!(
                 t_n.magnitude(),
-                1.0,
+                1.,
                 "Normalize should have a magnitude of 1"
             );
         }
-    }
-
-    #[test]
-    pub fn test_tuple_dot() {
-        let a = Tuple::vector(1.0, 2.0, 3.0);
-        let b = Tuple::vector(2.0, 3.0, 4.0);
-        let dot = a.dot(&b);
-        assert_eq!(dot, 20.0);
-    }
-
-    #[test]
-    pub fn test_tuple_cross() {
-        let a = Tuple::vector(1.0, 2.0, 3.0);
-        let b = Tuple::vector(2.0, 3.0, 4.0);
-        let cross_ab = a.cross(&b);
-        let corss_ba = b.cross(&a);
-        assert_eq!(cross_ab, Tuple::vector(-1.0, 2.0, -1.0));
-        assert_eq!(corss_ba, Tuple::vector(1.0, -2.0, 1.0));
     }
 }
