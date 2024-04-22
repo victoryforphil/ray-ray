@@ -12,6 +12,12 @@ impl Color {
         Color { r, g, b }
     }
 }
+
+impl Default for Color {
+    fn default() -> Self {
+        Self::new(0.0, 0.0, 0.0);
+    }
+}
 impl PartialEq for Color {
     fn eq(&self, other: &Self) -> bool {
         (self.r - other.r).abs() < COLOR_EPSILON
