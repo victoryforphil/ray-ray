@@ -1,4 +1,6 @@
-use ray_ray::math::Tuple;
+use std::path::PathBuf;
+
+use ray_ray::{math::Tuple, rendering::{Canvas, PPMFile}};
 
 use log::info;
 
@@ -16,6 +18,7 @@ pub struct ProjectileSim {
     pub projectile: Projectile,
     pub env: Env,
     pub tick: i32,
+    pub canvas: Canvas,
 }
 
 impl ProjectileSim {
@@ -31,21 +34,33 @@ impl ProjectileSim {
         let mut sim = ProjectileSim {
             projectile: Projectile {
                 position_p: Tuple::point(0.0, 1.0, 0.0),
-                velocity_v: Tuple::vector(1.0, 1.0, 0.0).normalize(),
+                velocity_v: Tuple::vector(1.0, 1.8, 0.0).normalize() * 9.5,
             },
             env: Env {
                 wind_v: Tuple::vector(-0.01, 0.0, 0.0),
                 gravity_v: Tuple::vector(0.0, -0.1, 0.0),
             },
             tick: 0,
+            canvas: Canvas::new(900, 550)
+
         };
 
         while sim.projectile.position_p.y > 0.0 {
             sim.tick();
+            
+       
             info!(
                 "Projectile Position @ tick ({}): {:?}",
                 sim.tick, sim.projectile.position_p
-            )
+            );
+
+            if (sim.projectile.position_p.y < 0.) || (sim.projectile.position_p.y < 0.){
+                continue;
+            }
+            let canvas_y = sim.canvas.height;
+            let pos = (sim.projectile.position_p.x as usize, canvas_y - sim.projectile.position_p.y as usize ); 
+            sim.canvas.write_pixel([1.0, 1.0, 1.0].into(),pos );
+
         }
 
         sim
@@ -60,6 +75,9 @@ pub fn main() {
         "Projectile Position @ tick ({}): {:?}",
         sim_res.tick, sim_res.projectile.position_p
     );
+
+    let ppm = PPMFile::from_canvas(&sim_res.canvas);
+    ppm.save_file(&PathBuf::from("./projectile.ppm"));
 }
 
 #[cfg(test)]

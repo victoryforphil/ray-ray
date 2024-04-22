@@ -15,7 +15,7 @@ impl Color {
 
 impl Default for Color {
     fn default() -> Self {
-        Self::new(0.0, 0.0, 0.0);
+        Self::new(0.0, 0.0, 0.0)
     }
 }
 impl PartialEq for Color {
