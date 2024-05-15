@@ -1,4 +1,4 @@
-mod tuple;
 mod matrix;
-pub use tuple::*;
+mod tuple;
 pub use matrix::*;
+pub use tuple::*;
