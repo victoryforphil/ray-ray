@@ -18,8 +18,8 @@ fn matrix_mul_4() -> Matrix {
     a * b
 }
 
-fn create_matrix_4() -> Matrix<4, 4> {
-    let a = Matrix::new([
+fn create_matrix_4() -> Matrix {
+    let a = Matrix::from([
         [2.0, 2.0, 3.0, 4.0],
         [5.0, 6.0, 7.0, 8.0],
         [9.0, 8.0, 7.0, 6.0],
@@ -28,8 +28,8 @@ fn create_matrix_4() -> Matrix<4, 4> {
     a
 }
 
-fn transpose_matrix_4() -> Matrix<4, 4> {
-    let a = Matrix::new([
+fn transpose_matrix_4() -> Matrix {
+    let a = Matrix::from([
         [2.0, 2.0, 3.0, 4.0],
         [5.0, 6.0, 7.0, 8.0],
         [9.0, 8.0, 7.0, 6.0],
@@ -39,7 +39,7 @@ fn transpose_matrix_4() -> Matrix<4, 4> {
 }
 
 fn test_matrix_det_4() -> f64 {
-    let a = Matrix::new([[1.0, 5.0], [-3.0, 2.0]]);
+    let a = Matrix::from([[1.0, 5.0], [-3.0, 2.0]]);
     a.determinate()
 }
 
