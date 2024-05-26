@@ -21,3 +21,9 @@ path = "src/sims/projectile.rs"
 
 [toolchain]
 channel = "nightly"
+[dev-dependencies]
+criterion = { version = "0.4", features = ["html_reports"] }
+
+[[bench]]
+name = "matrix"
+harness = false
