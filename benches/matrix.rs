@@ -1,15 +1,15 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use ray_ray::math::Matrix;
 
-fn matrix_mul_4() -> Matrix<4, 4> {
-    let a = Matrix::new([
+fn matrix_mul_4() -> Matrix {
+    let a = Matrix::from([
         [2.0, 2.0, 3.0, 4.0],
         [5.0, 6.0, 7.0, 8.0],
         [9.0, 8.0, 7.0, 6.0],
         [5.0, 4.0, 3.0, 2.0],
     ]);
 
-    let b = Matrix::new([
+    let b = Matrix::from([
         [3.0, 1.0, 2.0, 3.0],
         [3.0, 2.0, 1.0, -1.0],
         [4.0, 3.0, 6.0, 5.0],

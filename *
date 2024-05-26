@@ -56,7 +56,7 @@ impl Matrix {
     }
 
     pub fn indentity(size: (usize, usize)) -> Self {
-        let mut m = Self::zero(size.);
+        let mut m = Self::zero(size);
         for i in 0..m.w {
             m[i][i] = 1.0;
         }
