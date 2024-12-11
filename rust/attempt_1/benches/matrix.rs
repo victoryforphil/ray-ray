@@ -1,4 +1,4 @@
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use criterion::{criterion_group, criterion_main, Criterion};
 use ray_ray_a1::math::Matrix;
 
 fn matrix_mul_4() -> Matrix {
