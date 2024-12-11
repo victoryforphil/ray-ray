@@ -1,4 +1,3 @@
-
 use super::Color;
 #[derive(Debug, Clone)]
 pub struct Canvas {

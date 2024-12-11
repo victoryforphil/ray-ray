@@ -79,7 +79,7 @@ impl PPMFile {
 #[cfg(test)]
 mod test {
     use super::*;
-    
+
     use pretty_assertions::assert_eq;
 
     #[test]
