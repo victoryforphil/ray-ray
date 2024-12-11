@@ -1,4 +1,3 @@
-use log::info;
 
 use super::Color;
 #[derive(Debug, Clone)]

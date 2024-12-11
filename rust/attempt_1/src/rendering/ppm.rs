@@ -1,4 +1,4 @@
-use std::{fmt::format, fs::File, io::Write, path::PathBuf};
+use std::{fs::File, io::Write, path::PathBuf};
 
 use super::{Canvas, Color};
 
@@ -79,7 +79,7 @@ impl PPMFile {
 #[cfg(test)]
 mod test {
     use super::*;
-    use log::info;
+    
     use pretty_assertions::assert_eq;
 
     #[test]
