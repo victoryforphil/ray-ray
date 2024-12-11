@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use ray_ray::{
+use ray_ray_a1::{
     math::Tuple,
     rendering::{Canvas, PPMFile, RerunViewer},
 };

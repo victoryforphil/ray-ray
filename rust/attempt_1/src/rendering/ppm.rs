@@ -99,7 +99,7 @@ mod test {
 
     #[test]
     pub fn test_ppm_pixel_data() {
-        env_logger::init();
+        env_logger::try_init();
         let mut canvas = Canvas::new(5, 3);
         canvas.write_pixel([1.5, 0.0, 0.0].into(), (0, 0));
         canvas.write_pixel([0.0, 0.5, 0.0].into(), (2, 1));
@@ -112,7 +112,7 @@ mod test {
 
     #[test]
     pub fn test_ppm_max_70() {
-        env_logger::init();
+        env_logger::try_init();
         let mut canvas = Canvas::new(10, 2);
         canvas.set_all([1.0, 0.8, 0.6].into());
 

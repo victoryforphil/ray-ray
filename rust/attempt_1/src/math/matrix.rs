@@ -36,10 +36,10 @@ impl Matrix {
     /// Returns the size of the matrix (w, h)
     /// # Examples
     /// ```
-    /// use ray_ray::math::Matrix;
+    /// use ray_ray_a1::math::Matrix;
     /// let m = Matrix::new(&[
-    ///     [1.0, 2.0],
-    ///     [3.0, 4.0]
+    ///     &[1.0, 2.0],
+    ///     &[3.0, 4.0]
     /// ]);
     /// assert_eq!(m.size(), (2, 2));
     /// ```

@@ -1,4 +1,4 @@
-use std::ops::{Add, Div, Mul, Neg, Sub, Index, IndexMut};
+use std::ops::{Add, Div, Index, IndexMut, Mul, Neg, Sub};
 
 const TUPLE_EPSILON: f64 = 0.00001;
 #[derive(Debug, Copy, Clone)]
@@ -15,7 +15,7 @@ impl Tuple {
     ///
     /// # Examples
     /// ```
-    /// use ray_ray::math::Tuple;
+    /// use ray_ray_a1::math::Tuple;
     /// let tuple = Tuple::new(4.3, -4.2, 3.1, 1.0);
     /// ```
     pub fn new(x: f64, y: f64, z: f64, w: f64) -> Tuple {
@@ -27,7 +27,7 @@ impl Tuple {
     ///
     /// # Examples
     /// ```
-    /// use ray_ray::math::Tuple;
+    /// use ray_ray_a1::math::Tuple;
     /// let tuple = Tuple::point(4.3, -4.2, 3.1);
     /// assert_eq!(tuple.w, 1.0);
     /// ```
@@ -40,7 +40,7 @@ impl Tuple {
     ///
     /// # Examples
     /// ```
-    /// use ray_ray::math::Tuple;
+    /// use ray_ray_a1::math::Tuple;
     /// let tuple = Tuple::vector(4.3, -4.2, 3.1);
     /// assert_eq!(tuple.w, 0.0);
     /// ```
@@ -55,7 +55,7 @@ impl Tuple {
     /// # Examples
     ///
     /// ```
-    /// use ray_ray::math::Tuple;
+    /// use ray_ray_a1::math::Tuple;
     /// let tuple = Tuple::point(4.3, -4.2, 3.1);
     /// assert_eq!(tuple.is_point(), true);
     /// ```
@@ -69,7 +69,7 @@ impl Tuple {
     ///
     /// # Examples
     /// ```
-    /// use ray_ray::math::Tuple;
+    /// use ray_ray_a1::math::Tuple;
     /// let tuple = Tuple::vector(4.3, -4.2, 3.1);
     /// assert_eq!(tuple.is_vector(), true);
     /// ```
