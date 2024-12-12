@@ -1,7 +1,7 @@
-use std::ops::{Add, Div, Mul, Neg, Sub};
+use std::{fmt::{Debug, Display}, ops::{Add, Div, Mul, Neg, Sub}};
 
 
-#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Default, PartialEq, PartialOrd)]
 pub struct Tuple{
     pub x: f64,
     pub y: f64,
@@ -35,8 +35,57 @@ impl Tuple {
     pub fn is_vector(&self) -> bool{
         self.w == 0.0
     }
+    
+
+    /// Calculates the Magnitude
+    pub fn magnitude(&self) -> f64 {
+        let sum = self.x.powf(2.) + self.y.powf(2.) + self.z.powf(2.) + self.w.powf(2.);
+        sum.sqrt()
+    }
+
+    pub fn normalize(&mut self) {
+        let mag = self.magnitude();
+        self.x = self.x / mag;
+        self.y = self.y / mag;
+        self.z = self.z / mag;
+        self.w = self.w / mag;
+    }
+
+    pub fn normalized(self) -> Self {
+        let mut new = self.clone();
+        new.normalize();
+        new
+    }
+
+    pub fn dot(&self, rhs: &Tuple) -> f64{
+        return 
+        (self.x * rhs.x) +
+        (self.y * rhs.y) +
+        (self.z * rhs.z) +
+        (self.w * rhs.w) 
+    }
+
+    /// Calculates cross product
+    /// Returns a vector / tuple
+    pub fn cross(&self, rhs: &Tuple) -> Tuple{
+        let x = (self.y * rhs.z) - (self.z * rhs.y);
+        let y = (self.z * rhs.x) - (self.x * rhs.z);
+        let z = (self.x * rhs.y) - (self.y * rhs.x);
+        Self::new_vector(x, y, z)
+    }
+    
 }
 
+impl Display for Tuple{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Tuple({}, {}, {}, {})", self.x, self.y, self.z, self.w)
+    }
+}
+impl Debug for Tuple{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Tuple({}, {}, {}, {})", self.x, self.y, self.z, self.w)
+    }
+}
 
 impl From<[f64;4]> for Tuple{
     fn from(value: [f64;4]) -> Self {
@@ -136,6 +185,8 @@ impl Div<f64> for Tuple{
 
 mod test{
     
+
+
     use super::*;
     use pretty_assertions::assert_eq;
     #[test]
@@ -276,5 +327,72 @@ mod test{
         let ta = t  / 2.0;
 
         assert_eq!(ta, [0.5, -1.0, 1.5, -2.0].into());
+    }
+
+    #[test]
+    pub fn test_mangitude(){
+        let v1:Tuple = [1., 0., 0.].into();
+        assert_eq!(v1.magnitude(), 1.0);
+
+        let v2:Tuple = [0., 1., 0.].into();
+        assert_eq!(v2.magnitude(), 1.0);
+
+        let v3:Tuple = [0., 0., 1.].into();
+        assert_eq!(v3.magnitude(), 1.0);
+
+        let v4:Tuple = [1., 2., 3.].into();
+        let a4 = (14.0_f64).sqrt();
+        assert_eq!(v4.magnitude(), a4);
+
+        let v5:Tuple = [-1.,- 2., -3.].into();
+        let a5 = (14.0_f64).sqrt();
+        assert_eq!(v5.magnitude(), a5);
+    }
+
+    #[test]
+    pub fn test_normalize(){
+
+        // Verify normalize / normalized to the same thing
+
+        let mut v_n:Tuple = [4., 3., 2.].into();
+        let v_m = v_n.normalized();
+
+        v_n.normalize();
+
+        assert_eq!(v_m, v_n);
+
+
+        let v1: Tuple = [4., 0., 0.].into();
+        assert_eq!(v1.normalized(), [1.0, 0., 0.].into());
+
+        let v2: Tuple = [1., 2., 3.].into();
+        assert_eq!(v2.normalized(), [
+            (1. / 14_f64.sqrt()),
+            (2. / 14_f64.sqrt()),
+            (3. / 14_f64.sqrt())
+        ].into());
+
+        assert_eq!(v1.normalized().magnitude(), 1.0);
+        assert_eq!(v2.normalized().magnitude(), 1.0);
+    }
+
+    #[test]
+    pub fn test_dot_product(){
+
+        let v_a:Tuple = [1., 2., 3.].into();
+        let v_b:Tuple = [2., 3., 4.].into();
+
+        let a = v_a.dot(&v_b);
+        assert_eq!(a, 20.0);
+    }
+
+    #[test]
+    pub fn test_cross_product(){
+        let v_a: Tuple = [1., 2., 3.].into();
+        let v_b: Tuple = [2., 3., 4.].into();
+        let a_b = v_a.cross(&v_b);
+        let b_a = v_b.cross(&v_a);
+        assert_eq!(a_b, [-1., 2., -1.].into());
+        assert_eq!(b_a, [1., -2., 1.].into());
     }
 }

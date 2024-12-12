@@ -7,3 +7,11 @@ edition = "2021"
 pretty_env_logger = "*"
 log = "0.4.21"
 pretty_assertions = "1.4.0"
+anyhow = "1.0.94"
+
+[[bin]]
+name = "projectile_sim"
+path = "src/sims/projectile.rs"
+
+[lib]
+path = "src/lib.rs"
