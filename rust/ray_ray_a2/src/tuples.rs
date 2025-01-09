@@ -23,6 +23,31 @@ impl Tuple {
     pub fn new_vector(x: f64, y: f64, z: f64) -> Self{
         Self { x: x, y: y, z: z, w: 0.0 }
     }
+
+    pub fn new_color_float(r: f64, g: f64, b:f64) -> Self{
+        Self{
+            x: r, y: g, z: b, w: 0.0
+        }
+    }
+
+    pub fn r(&self) -> f64{
+        return self.x;
+    }
+    pub fn g(&self) -> f64{
+        return self.x;
+    }
+    pub fn b(&self) -> f64{
+        return self.x;
+    }
+
+    pub fn color_multiply(&self, rhs: &Tuple) -> Self{
+        Self{
+            x: self.r() * rhs.r(),
+            y: self.g() * rhs.g(),
+            z: self.b() * rhs.b(),
+            w: self.w
+        }
+    }
     
     /// Returns if the current tuple is a point
     /// (if w = 1.0)
@@ -74,6 +99,14 @@ impl Tuple {
         Self::new_vector(x, y, z)
     }
     
+}
+
+pub struct Color;
+
+impl Color{
+    pub fn new(r: u8, g: u8, b: u8) -> Tuple{
+        Tuple::new_color_float(r as f64/ 255.0, g as f64 / 255., b as f64/ 255.)
+    }
 }
 
 impl Display for Tuple{
@@ -394,5 +427,19 @@ mod test{
         let b_a = v_b.cross(&v_a);
         assert_eq!(a_b, [-1., 2., -1.].into());
         assert_eq!(b_a, [1., -2., 1.].into());
+    }
+
+    #[test]
+    pub fn test_colors(){
+        let c_a: Tuple = Tuple::new_color_float(1.0, 0.5, 0.25);
+        let c_b: Tuple = Tuple::new_color_float(0.5, 0.25, 1.0);
+
+        assert_eq!(c_a + c_b, [1.5, 0.75, 1.25].into());
+        assert_eq!(c_a - c_b, [0.5, 0.25, -0.75].into());
+        assert_eq!(c_a.color_multiply(&c_b), [0.5, 0.5, 0.5].into());
+
+
+        assert_eq!(c_a * 2. , [2., 1.,  0.5].into());
+
     }
 }
