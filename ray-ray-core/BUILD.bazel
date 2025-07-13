@@ -5,5 +5,21 @@ cc_test(
     deps = [
         "@googletest//:gtest",
         "@googletest//:gtest_main",
+        ":core_lib",
+    ],
+)
+
+cc_library(
+    name = "core_lib",
+    srcs = glob(["src/*.cc"], exclude = ["src/main.cc"]),
+    hdrs = glob(["include/**/*.h"]),
+    strip_include_prefix = "include",
+)
+
+cc_binary(
+    name = "run",
+    srcs = ["src/main.cc"],
+    deps = [
+        ":core_lib",
     ],
 )
