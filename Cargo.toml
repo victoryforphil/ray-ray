@@ -1,2 +1,0 @@
-[workspace]
-members = ["rust/ray_ray_a1", "rust/ray_ray_a2"]

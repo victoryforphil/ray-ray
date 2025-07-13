@@ -1,0 +1,9 @@
+cc_test(
+    name = "gtest_test",
+    size = "small",
+    srcs = glob(["tests/*.cc"]),
+    deps = [
+        "@googletest//:gtest",
+        "@googletest//:gtest_main",
+    ],
+)
