@@ -23,3 +23,11 @@ cc_binary(
         ":core_lib",
     ],
 )
+
+cc_binary(
+    name = "projectile",
+    srcs = ["bins/projectile.cc"],
+    deps = [
+        ":core_lib",
+    ],
+)
