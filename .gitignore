@@ -20,3 +20,10 @@ Cargo.lock
 *.ppm
 
 rust./
+
+# Bazel
+# Ignore Bazel build output directories
+bazel-*
+bazel-out/
+# Ignore Bazel cache directories
+.bazel-cache/  
