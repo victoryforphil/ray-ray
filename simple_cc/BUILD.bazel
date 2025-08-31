@@ -1,3 +1,5 @@
+
+
 cc_test(
     name = "gtest_test",
     size = "small",
@@ -17,7 +19,7 @@ cc_library(
 )
 
 cc_binary(
-    name = "run",
+    name = "simple_cc",
     srcs = ["src/main.cc"],
     deps = [
         ":core_lib",
