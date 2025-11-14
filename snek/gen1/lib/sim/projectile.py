@@ -1,4 +1,4 @@
-from snek.gen1.lib.math.tuple import Point, Vector
+from ray_ray.lib.math.tuple import Point, Vector
 
 class Projectile:
     def __init__(self, pos, vel):
