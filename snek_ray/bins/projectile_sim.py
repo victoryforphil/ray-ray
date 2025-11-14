@@ -1,9 +1,12 @@
 import matplotlib.pyplot as plt
 from snek_ray.lib.sim.projectile import ProjectileSim
 
+
+
 fig, ax = plt.subplots()
 x_data = []
 y_data = []
+
 
 sim = ProjectileSim()
 

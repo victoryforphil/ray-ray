@@ -26,6 +26,17 @@ py_binary(
     visibility = ["//visibility:public"],
 )
 
+py_binary(
+    name = "projectile_ppm",
+    srcs = ["bins/projectile_ppm.py"],
+    deps = [
+        ":snek_ray_lib",
+         "@pypi//matplotlib:pkg",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+
 py_test(
     name = "snek_ray_tests",
     srcs = glob(["test/**/*.py"]),

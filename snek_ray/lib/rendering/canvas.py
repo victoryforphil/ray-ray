@@ -7,10 +7,10 @@ class Canvas:
         self.data = [[Color(0.0,0.0,0.0) for _ in range(width)] for _ in range(height)]
 
     def write_pixel(self, x, y, color):
-        self.data[y][x] = color
+        self.data[int(y)][int(x)] = color
 
     def pixel_at(self, x, y):
-        return self.data[y][x]
+        return self.data[int(y)][int(x)]
 
     def as_ppm(self):
 
