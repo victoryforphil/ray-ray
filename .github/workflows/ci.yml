@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 env:
   BAZELISK_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

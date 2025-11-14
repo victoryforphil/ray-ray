@@ -5,3 +5,6 @@ class Matrix:
     def __getitem__(self, index: tuple):
         (row,col) = index
         return self.data[row][col]
+    
+    def __eq__(self, value):
+        return self.data == self.data
