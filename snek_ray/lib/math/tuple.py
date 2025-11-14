@@ -6,6 +6,7 @@ def Vector(x, y, z):
 
 def Point(x, y, z):
     return Tuple(x, y, z, 1.0)
+
 class Tuple:
     def __init__(self, x, y, z, w):
         self.x = x  
