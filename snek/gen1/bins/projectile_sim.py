@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from snek_ray.lib.sim.projectile import ProjectileSim
+from snek.gen1.lib.sim.projectile import ProjectileSim
 
 
 

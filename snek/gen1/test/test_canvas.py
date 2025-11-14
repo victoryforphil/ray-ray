@@ -1,5 +1,5 @@
-from snek_ray.lib.rendering.canvas import Canvas
-from snek_ray.lib.math.color import Color
+from snek.gen1.lib.rendering.canvas import Canvas
+from snek.gen1.lib.math.color import Color
 
 def test_canvas_create_blank():
     canvas = Canvas(10,20)

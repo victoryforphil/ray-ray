@@ -1,4 +1,4 @@
-from snek_ray.lib.math.color import Color
+from snek.gen1.lib.math.color import Color
 
 def test_color_new():
     c = Color(-0.5, 0.4,1.7)

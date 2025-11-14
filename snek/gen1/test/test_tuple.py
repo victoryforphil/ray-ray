@@ -1,6 +1,6 @@
 
 
-from snek_ray.lib.math.tuple import Tuple, Point, Vector
+from snek.gen1.lib.math.tuple import Tuple, Point, Vector
 
 def test_point_constructor():
     p = Point(4, -4, 3)

@@ -1,4 +1,4 @@
-from snek_ray.lib.math.matrix import Matrix
+from snek.gen1.lib.math.matrix import Matrix
 def test_matrix_4x4_new():
     m  = Matrix(data = [
         [1., 2., 3., 4.],

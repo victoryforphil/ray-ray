@@ -1,7 +1,7 @@
 load("@rules_python//python:defs.bzl", "py_library", "py_binary", "py_test")
 
 py_library(
-    name = "snek_ray_lib",
+    name = "ray_ray_lib",
     # All py files in the lib directory
     srcs = glob(["lib/**/*.py"]),
     visibility = ["//visibility:public"],
@@ -11,7 +11,7 @@ py_binary(
     name = "main",
     srcs = ["main.py"],
     deps = [
-        ":snek_ray_lib",
+        ":ray_ray_lib",
     ],
      visibility = ["//visibility:public"],
 )
@@ -20,7 +20,7 @@ py_binary(
     name = "projectile_sim",
     srcs = ["bins/projectile_sim.py"],
     deps = [
-        ":snek_ray_lib",
+        ":ray_ray_lib",
         "@pypi//matplotlib:pkg",
     ],
     visibility = ["//visibility:public"],
@@ -30,7 +30,7 @@ py_binary(
     name = "projectile_ppm",
     srcs = ["bins/projectile_ppm.py"],
     deps = [
-        ":snek_ray_lib",
+        ":ray_ray_lib",
          "@pypi//matplotlib:pkg",
     ],
     visibility = ["//visibility:public"],
@@ -38,15 +38,15 @@ py_binary(
 
 
 py_test(
-    name = "snek_ray_tests",
+    name = "ray_ray_tests",
     srcs = glob(["test/**/*.py"]),
     main = "test/__init__.py",
     deps = [
-        ":snek_ray_lib",
+        ":ray_ray_lib",
         "@pypi//pytest:pkg",
     ],
     args = [
         "-v",
-        "snek_ray/test/",
+        "snek/gen1/test/",
     ],
 )

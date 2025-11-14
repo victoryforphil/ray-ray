@@ -1,4 +1,4 @@
-from snek_ray.lib.math.color import Color
+from snek.gen1.lib.math.color import Color
 
 class Canvas:
     def __init__(self, width, height):

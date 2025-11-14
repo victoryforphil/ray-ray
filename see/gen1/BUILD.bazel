@@ -19,7 +19,7 @@ cc_library(
 )
 
 cc_binary(
-    name = "simple_cc",
+    name = "main",
     srcs = ["src/main.cc"],
     deps = [
         ":core_lib",

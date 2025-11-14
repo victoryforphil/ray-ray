@@ -1,7 +1,7 @@
 
-from snek_ray.lib.sim.projectile import ProjectileSim
-from snek_ray.lib.math.color import Color
-from snek_ray.lib.rendering.canvas import Canvas
+from snek.gen1.lib.sim.projectile import ProjectileSim
+from snek.gen1.lib.math.color import Color
+from snek.gen1.lib.rendering.canvas import Canvas
 
 sim = ProjectileSim()
 c = Canvas(900, 550)
