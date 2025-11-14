@@ -1,5 +1,5 @@
 # Color Base
-def float_eq(a, b, ep=0.0001):
+def float_eq(a, b, ep=0.001):
     return abs(a-b) < ep
 class Color:
     def __init__(self, r,g,b):
@@ -10,10 +10,7 @@ class Color:
     def len(self):
         return 3
     def __eq__(self, value):
-
-    
-
-        return (float_eq(self[0],value[0])) and  float_eq(self[1],value[1])    and  float_eq(self[2],value[2])     
+        return (float_eq(self[0],value[0])) and float_eq(self[1],value[1]) and float_eq(self[2],value[2])     
     def __getitem__(self, index):
         return (self.r, self.g, self.b)[index]
     def __add__(self, other):
