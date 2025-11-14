@@ -7,4 +7,4 @@ class Matrix:
         return self.data[row][col]
     
     def __eq__(self, value):
-        return self.data == self.data
+        return self.data == value.data

@@ -12,9 +12,6 @@ permissions:
   contents: read
   actions: write
 
-env:
-  BAZELISK_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build:
     name: Bazel build
@@ -28,18 +25,12 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Set up Bazelisk
-        uses: bazelbuild/setup-bazelisk@v2
-
-      - name: Cache Bazel outputs
-        uses: actions/cache@v4
+      - name: Set up Bazel
+        uses: bazel-contrib/setup-bazel@0.15.0
         with:
-          path: |
-            ~/.cache/bazel
-            ~/.cache/bazelisk
-          key: ${{ runner.os }}-bazel-${{ hashFiles('MODULE.bazel', 'MODULE.bazel.lock', 'requirements.txt', 'pyproject.toml', 'simple_cc/BUILD.bazel', 'snek_ray/BUILD.bazel') }}
-          restore-keys: |
-            ${{ runner.os }}-bazel-
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
 
       - name: Bazel build
         run: bazel build //...
@@ -57,18 +48,12 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Set up Bazelisk
-        uses: bazelbuild/setup-bazelisk@v2
-
-      - name: Reuse Bazel cache
-        uses: actions/cache@v4
+      - name: Set up Bazel
+        uses: bazel-contrib/setup-bazel@0.15.0
         with:
-          path: |
-            ~/.cache/bazel
-            ~/.cache/bazelisk
-          key: ${{ runner.os }}-bazel-${{ hashFiles('MODULE.bazel', 'MODULE.bazel.lock', 'requirements.txt', 'pyproject.toml', 'simple_cc/BUILD.bazel', 'snek_ray/BUILD.bazel') }}
-          restore-keys: |
-            ${{ runner.os }}-bazel-
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
 
       - name: Bazel test
         run: bazel test //...
