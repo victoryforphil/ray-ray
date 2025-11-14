@@ -91,3 +91,24 @@ def test_matix_4x4_mul():
         [16., 26., 46., 42.],
     ])
     assert ma * mb == m_expected
+
+
+def test_matrix_4x4_mul_tuple():
+    m = Matrix(data = [
+        [1., 2., 3., 4.],
+        [2., 4., 4., 2.],
+        [8., 6., 4., 1.],
+        [0., 0., 0., 1.],
+    ])
+    t = (1., 2., 3., 1.)
+
+    result = m * t
+
+    expected = Matrix(data = [
+        [18.],
+        [24.],
+        [33.],
+        [1.],
+    ])
+
+    assert result == expected   

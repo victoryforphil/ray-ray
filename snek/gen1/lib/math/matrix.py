@@ -18,12 +18,21 @@ class Matrix:
         
         return "\n".join(lines)
     def __mul__(self, other):
-        if self.width != other.height:
-            raise ValueError("Incompatible matrix sizes for multiplication")
-        
+    
         # Limit to 4x4 for now
-        if self.height > 4 or self.width > 4 or other.width > 4:
+        if self.height > 4 or self.width > 4:
             raise ValueError("Matrix multiplication only supported for 4x4 matrices")
+        
+        if isinstance(other, tuple):
+            # Tuple multiplication
+            result = []
+            for row in range(self.height):
+                value = (self[(row,0)] * other[0] +
+                         self[(row,1)] * other[1] +
+                         self[(row,2)] * other[2] +
+                         self[(row,3)] * other[3])
+                result.append([value])
+            return Matrix(result)
 
         result_data = []
         
