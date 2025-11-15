@@ -1,3 +1,10 @@
+def IdentityMatrix4x4():
+    return Matrix([[1,0,0,0],
+                   [0,1,0,0],
+                   [0,0,1,0],
+                   [0,0,0,1]])
+
+
 class Matrix:
     def __init__(self, data):
         self.height = len(data)

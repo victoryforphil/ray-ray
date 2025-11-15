@@ -1,4 +1,4 @@
-from snek.gen1.lib.math.matrix import Matrix
+from snek.gen1.lib.math.matrix import Matrix, IdentityMatrix4x4
 def test_matrix_4x4_new():
     m  = Matrix(data = [
         [1., 2., 3., 4.],
@@ -112,3 +112,27 @@ def test_matrix_4x4_mul_tuple():
     ])
 
     assert result == expected   
+
+
+def test_matrix_4x4identity_mul():
+    m = Matrix(data = [
+        [0., 1., 2., 4.],
+        [1., 2., 4., 8.],
+        [2., 4., 8., 16.],
+        [4., 8., 16., 32.],
+    ])
+
+    identity = IdentityMatrix4x4()
+    assert m * identity == m
+
+
+def test_tuple_identity_mul():
+    t = (1.,2.,3.,4.)
+    result = IdentityMatrix4x4() * t
+    expected = Matrix(data = [
+        [1.],
+        [2.],
+        [3.],
+        [4.],
+    ])
+    assert result == expected
