@@ -55,3 +55,13 @@ class Matrix:
             result_data.append(result_row)
 
         return Matrix(result_data)
+    
+
+    def transpose(self):
+        result_data = []
+        for col in range(self.width):
+            result_row = []
+            for row in range(self.height):
+                result_row.append(self[(row,col)])
+            result_data.append(result_row)
+        return Matrix(result_data)
