@@ -159,3 +159,13 @@ def test_matrix_transpose():
 def test_matrix_identity_transpose():
     identity = IdentityMatrix4x4()
     assert identity.transpose() == identity
+
+
+def test_matrix_determinant_2x2():
+    m = Matrix([
+        [1.0, 5.0],
+        [-3.0, 2.0]
+    ])
+
+    d = m.determinant()
+    assert d == 17.

@@ -65,3 +65,16 @@ class Matrix:
                 result_row.append(self[(row,col)])
             result_data.append(result_row)
         return Matrix(result_data)
+    
+    def determinant(self):
+        # Limit to 2x2 for now
+
+        assert(self.width == 2)
+        assert(self.height == 2)
+
+        a = self[(0,0)]
+        b = self[(0,1)]
+        c = self[(1,0)]
+        d = self[(1,1)]
+
+        return (a*d) - (b*c)
