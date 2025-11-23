@@ -15,7 +15,15 @@ class Matrix:
         return self.data[row][col]
 
     def __eq__(self, value):
-        return self.data == value.data
+        if self.height != value.height or self.width != value.width:
+            return False
+        
+        epsilon = 1e-5
+        for row in range(self.height):
+            for col in range(self.width):
+                if abs(self[(row, col)] - value[(row, col)]) > epsilon:
+                    return False
+        return True
 
     def __repr__(self):
         lines = []
@@ -108,3 +116,20 @@ class Matrix:
             minor = minor * -1.0
 
         return minor
+
+    def invertable(self):
+        det = self.determinant()
+        return det != 0
+    
+    def inverse(self):
+        assert self.invertable() == True
+
+        m2 = Matrix(self.data)
+
+        for xRow in range(self.width):
+            for yCol in range(self.height):
+                c = self.cofactor(xRow, yCol)
+
+                m2.data[yCol][xRow] = c / self.determinant()
+
+        return m2
