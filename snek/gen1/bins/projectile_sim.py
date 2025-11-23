@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 from snek.gen1.lib.sim.projectile import ProjectileSim
 
 
-
 fig, ax = plt.subplots()
 x_data = []
 y_data = []
@@ -16,13 +15,13 @@ while sim.projectile.position.y > 0:
     y_data.append(pos.y)
     # Clear the previous plot
 
-    
+
 # Plot the data
-ax.plot(x_data, y_data, 'bo-')  # 'bo-' means blue color, circle markers, solid line
+ax.plot(x_data, y_data, "bo-")  # 'bo-' means blue color, circle markers, solid line
 
 
-plt.xlabel('X Position')
-plt.ylabel('Y Position')
-plt.title('Projectile Trajectory')
+plt.xlabel("X Position")
+plt.ylabel("Y Position")
+plt.title("Projectile Trajectory")
 plt.grid(True)
 plt.show()
