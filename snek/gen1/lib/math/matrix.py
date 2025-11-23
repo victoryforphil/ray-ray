@@ -93,3 +93,8 @@ class Matrix:
                    
             data.append(row)
         return Matrix(data)   
+    
+
+    def minor(self, row, col):
+        mb = self.submatrix(row, col)
+        return mb.determinant()

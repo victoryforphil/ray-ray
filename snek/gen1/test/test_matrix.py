@@ -207,3 +207,22 @@ def test_matrix_submatrix_4x4():
     assert m_sub == m3
     assert m_sub.width == 3
     assert m_sub.height == 3
+
+
+def test_matrix_minor_3x3():
+    ma = Matrix([
+        [3., 5., 0.],
+        [2., -1., -7.],
+        [6., -1., 5.],
+    ])
+
+    mb = ma.submatrix(1, 0)
+    md = mb.determinant()
+
+    assert md == 25
+
+    # -- 
+
+    m_minor = ma.minor(1,0)
+
+    assert m_minor == 25 
