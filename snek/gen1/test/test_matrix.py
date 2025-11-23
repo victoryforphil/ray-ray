@@ -260,3 +260,34 @@ def test_matrix_cofactor_3x3():
 
     cofactor_2 = ma.cofactor(1, 0)
     assert cofactor_2 == -25.0
+
+
+def test_matrix_determinant_3x3():
+    ma = Matrix([
+        [1., 2., 6.],
+        [-5., 8., -4.],
+        [2., 6., 4.]
+    ])
+
+    assert ma.cofactor(0,0) == 56
+    assert ma.cofactor(0,1) == 12
+    assert ma.cofactor(0,2) == -46
+
+    assert ma.determinant() == -196
+    
+
+def test_matrix_determinant_4x4():
+
+    ma = Matrix([
+        [-2, -8, 3, 5],
+        [-3, 1, 7, 3],
+        [1, 2, -9, 6],
+        [-6, 7, 7, -9]
+    ])
+
+    assert ma.cofactor(0,0) == 690
+    assert ma.cofactor(0,1) == 447
+    assert ma.cofactor(0,2) == 210
+    assert ma.cofactor(0,3) == 51
+
+    assert ma.determinant() == -4071

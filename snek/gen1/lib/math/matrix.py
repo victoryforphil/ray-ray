@@ -6,7 +6,9 @@ class Matrix:
     def __init__(self, data):
         self.height = len(data)
         self.width = len(data[0]) if self.height > 0 else 0
-        self.data = data
+        self.data = [[float(x) for x in row] for row in data]
+
+
 
     def __getitem__(self, index: tuple):
         (row, col) = index
@@ -67,17 +69,16 @@ class Matrix:
         return Matrix(result_data)
 
     def determinant(self):
-        # Limit to 2x2 for now
+        det = 0.
 
-        assert self.width == 2
-        assert self.height == 2
+        if self.width == 2 and self.height == 2:
+            det = self[(0, 0)] * self[(1, 1)] - self[(0, 1)] * self[(1, 0)]
+        else:
+            for col in range(self.width):
+                cofactor = self.cofactor(0, col)
+                det += self[(0, col)] * cofactor
 
-        a = self[(0, 0)]
-        b = self[(0, 1)]
-        c = self[(1, 0)]
-        d = self[(1, 1)]
-
-        return (a * d) - (b * c)
+        return det
 
     def submatrix(self, del_row, del_col):
         data = []
