@@ -169,3 +169,41 @@ def test_matrix_determinant_2x2():
 
     d = m.determinant()
     assert d == 17.
+
+def test_matrix_submatrix_3x3():
+    m3 = Matrix([
+        [1., 5., 0.],
+        [-3., 2., 7.],
+        [0., 6., -3.]
+    ])
+
+    m2 = Matrix([
+        [-3., 2.],
+        [0., 6.]
+    ])
+
+    ma = m3.submatrix(0,2)
+  
+    assert ma == m2
+    assert ma.width == 2
+    assert ma.height == 2
+
+
+def test_matrix_submatrix_4x4():
+    m4 = Matrix([
+        [-6., 1., 1., 6.],
+        [-8., 5., 8., 6.],
+        [-1., 0., 8., 2.],
+        [-7., 1., -1., 1.],
+    ])
+
+    m3 = Matrix([
+        [-6., 1. , 6.],
+        [-8., 8. , 6.],
+        [-7., -1. , 1.]
+    ])
+
+    m_sub = m4.submatrix(2, 1)
+    assert m_sub == m3
+    assert m_sub.width == 3
+    assert m_sub.height == 3

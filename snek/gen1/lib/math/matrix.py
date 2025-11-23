@@ -78,3 +78,18 @@ class Matrix:
         d = self[(1,1)]
 
         return (a*d) - (b*c)
+    
+    def submatrix(self, del_row, del_col):
+        data = [] 
+        for i_row in range(self.height):
+            row = []
+            if i_row == del_row:
+                continue
+            for i_col in range(self.width):
+                if i_col == del_col:
+                    continue
+                value = self[(i_row, i_col)]
+                row.append(value)
+                   
+            data.append(row)
+        return Matrix(data)   
