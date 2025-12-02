@@ -15,3 +15,22 @@ def Translation(position: Tuple):
         [0, 0, 1, z],
         [0, 0, 0, 1],
     ])
+
+
+def Scale(scale: Tuple):
+    # [x, 0, 0, 0]
+    # [0, y, 0, 0]
+    # [0, 0, z, 0]
+    # [0, 0, 0, 1]
+    x = scale.x
+    y = scale.y 
+    z = scale.z
+    return Matrix(data=[
+        [x, 0, 0, 0],
+        [0, y, 0, 0],
+        [0, 0, z, 0],
+        [0, 0, 0, 1],
+    ])
+
+def Reflect():
+    return Scale(Vector(-1.0, 1.0, 1.0))
