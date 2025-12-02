@@ -1,5 +1,5 @@
 from snek.gen1.lib.math.matrix import Matrix, IdentityMatrix4x4
-
+from snek.gen1.lib.math.tuple import Tuple
 
 def test_matrix_4x4_new():
     m = Matrix(
@@ -107,6 +107,20 @@ def test_matix_4x4_mul():
     assert ma * mb == m_expected
 
 
+def test_matrix_as_tuple():
+    m = Matrix(
+        data=[
+            [18.0],
+            [24.0],
+            [33.0],
+            [1.0],
+        ]
+    )
+    t = m.as_tuple()
+
+    assert t == Tuple(18., 24. , 33., 1.)
+
+
 def test_matrix_4x4_mul_tuple():
     m = Matrix(
         data=[
@@ -120,16 +134,9 @@ def test_matrix_4x4_mul_tuple():
 
     result = m * t
 
-    expected = Matrix(
-        data=[
-            [18.0],
-            [24.0],
-            [33.0],
-            [1.0],
-        ]
-    )
+    expected_t = Tuple(18., 24., 33., 1.)
 
-    assert result == expected
+    assert result.as_tuple() == expected_t
 
 
 def test_matrix_4x4identity_mul():
@@ -394,3 +401,5 @@ def test_matrix_mul_inverse():
     md = mc * mb.inverse()
 
     assert md == ma
+
+

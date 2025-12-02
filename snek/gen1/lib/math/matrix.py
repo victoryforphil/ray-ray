@@ -1,3 +1,5 @@
+from snek.gen1.lib.math.tuple import Tuple
+
 def IdentityMatrix4x4():
     return Matrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 
@@ -37,7 +39,7 @@ class Matrix:
         if self.height > 4 or self.width > 4:
             raise ValueError("Matrix multiplication only supported for 4x4 matrices")
 
-        if isinstance(other, tuple):
+        if isinstance(other, Tuple) or isinstance(other, tuple):
             # Tuple multiplication
             result = []
             for row in range(self.height):
@@ -133,3 +135,13 @@ class Matrix:
                 m2.data[yCol][xRow] = c / self.determinant()
 
         return m2
+    
+    def as_tuple(self):
+        assert self.width == 1
+        
+
+        t_array = []
+        for i_row in range(self.width):
+            for i_col in range(self.height):
+                t_array.append(self.data[i_col][i_row])
+        return Tuple(t_array[0], t_array[1], t_array[2], t_array[3])
