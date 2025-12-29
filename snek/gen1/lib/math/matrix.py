@@ -1,5 +1,6 @@
 from snek.gen1.lib.math.tuple import Tuple
 
+
 def IdentityMatrix4x4():
     return Matrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 
@@ -10,16 +11,17 @@ class Matrix:
         self.width = len(data[0]) if self.height > 0 else 0
         self.data = [[float(x) for x in row] for row in data]
 
-
-
     def __getitem__(self, index: tuple):
         (row, col) = index
         return self.data[row][col]
 
     def __eq__(self, value):
+        if isinstance(value, Tuple) or isinstance(value, tuple):
+            return value == value
+
         if self.height != value.height or self.width != value.width:
             return False
-        
+
         epsilon = 1e-5
         for row in range(self.height):
             for col in range(self.width):
@@ -79,7 +81,7 @@ class Matrix:
         return Matrix(result_data)
 
     def determinant(self):
-        det = 0.
+        det = 0.0
 
         if self.width == 2 and self.height == 2:
             det = self[(0, 0)] * self[(1, 1)] - self[(0, 1)] * self[(1, 0)]
@@ -122,7 +124,7 @@ class Matrix:
     def invertable(self):
         det = self.determinant()
         return det != 0
-    
+
     def inverse(self):
         assert self.invertable() == True
 
@@ -135,10 +137,9 @@ class Matrix:
                 m2.data[yCol][xRow] = c / self.determinant()
 
         return m2
-    
+
     def as_tuple(self):
         assert self.width == 1
-        
 
         t_array = []
         for i_row in range(self.width):

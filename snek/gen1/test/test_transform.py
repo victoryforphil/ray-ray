@@ -1,36 +1,37 @@
+import math
 
-from snek.gen1.lib.math.transformations import Reflect, Translation, Scale
-
-from snek.gen1.lib.math.tuple import Vector, Point
+from snek.gen1.lib.math.transformations import Reflect, RotationX, Scale, Translation
+from snek.gen1.lib.math.tuple import Point, Vector
 
 
 def test_transform_translation_matrix_mul():
-    transform = Translation(Vector(5., -3., 2.))
-    p = Point(-3., 4., 5.)
+    transform = Translation(Vector(5.0, -3.0, 2.0))
+    p = Point(-3.0, 4.0, 5.0)
 
     transformed_p = transform * p
-    expected_p = Point(2., 1., 7.)
+    expected_p = Point(2.0, 1.0, 7.0)
     assert transformed_p.as_tuple() == expected_p
 
 
 def test_transform_inverse_translate_mul():
-    transform = Translation(Vector(5., -3., 2.))
+    transform = Translation(Vector(5.0, -3.0, 2.0))
     inv = transform.inverse()
-    p = Point(-3., 4., 5.)
+    p = Point(-3.0, 4.0, 5.0)
 
     transformed_p = inv * p
-    expected_p = Point(-8.,7., 3.)
+    expected_p = Point(-8.0, 7.0, 3.0)
     assert transformed_p.as_tuple() == expected_p
 
 
 def test_tranform_translate_unchanged_vectors():
-    transform = Translation(Vector(5., -3., 2.))
-    v = Vector(-3., 4., 5.)
+    transform = Translation(Vector(5.0, -3.0, 2.0))
+    v = Vector(-3.0, 4.0, 5.0)
     tv = transform * v
     assert tv.as_tuple() == v
 
 
 # Scaling
+
 
 def test_scale_point():
     transform = Scale(Vector(2.0, 3.0, 4.0))
@@ -39,12 +40,14 @@ def test_scale_point():
 
     assert pt.as_tuple() == Point(-8.0, 18.0, 32.0)
 
+
 def test_scale_vector():
     transform = Scale(Vector(2.0, 3.0, 4.0))
     v = Vector(-4.0, 6.0, 8.0)
     vt = transform * v
 
     assert vt.as_tuple() == Vector(-8.0, 18.0, 32.0)
+
 
 def test_scale_inverse():
     transform = Scale(Vector(2.0, 3.0, 4.0))
@@ -54,6 +57,7 @@ def test_scale_inverse():
 
     assert vt.as_tuple() == Vector(-2.0, 2.0, 2.0)
 
+
 def test_scale_reflect():
     transform = Reflect()
 
@@ -61,3 +65,25 @@ def test_scale_reflect():
     rp = transform * p
 
     assert rp.as_tuple() == Point(-2.0, 3.0, 4.0)
+
+
+def test_rotate_x_axis():
+    pi = 3.1415
+    p = Point(0.0, 1.0, 0.0)
+    half_quater = RotationX(pi / 4.0)
+    full_quater = RotationX(pi / 2.0)
+
+    half_p = half_quater * p
+    assert half_p == Point(0.0, math.sqrt(2.0) / 2.0, math.sqrt(2.0) / 2.0)
+    full_p = full_quater * p
+    assert full_p == Point(0.0, 0.0, 1.0)
+
+
+def test_rotate_x_axis_inverse():
+    pi = 3.1415
+    p = Point(0.0, 1.0, 0.0)
+    half_quater = RotationX(pi / 4.0)
+    inv = half_quater.inverse()
+
+    half_p = inv * p
+    assert half_p == Point(0.0, math.sqrt(2.0) / 2.0, -math.sqrt(2.0) / 2.0)
