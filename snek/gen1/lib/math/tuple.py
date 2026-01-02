@@ -10,6 +10,10 @@ def Point(x, y, z):
     return Tuple(x, y, z, 1.0)
 
 
+def float_eq(a, b, ep=0.001):
+    return abs(a - b) < ep
+
+
 class Tuple:
     def __init__(self, x, y, z, w):
         self.x = x
@@ -22,10 +26,10 @@ class Tuple:
 
     def __eq__(self, value):
         return (
-            (self[0] == value[0])
-            and (self[1] == value[1])
-            and (self[2] == value[2])
-            and (self[3] == value[3])
+            float_eq(self[0], value[0])
+            and float_eq(self[1], value[1])
+            and float_eq(self[2], value[2])
+            and float_eq(self[3], value[3])
         )
 
     def __getitem__(self, index):

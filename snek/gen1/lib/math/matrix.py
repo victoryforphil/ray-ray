@@ -5,6 +5,10 @@ def IdentityMatrix4x4():
     return Matrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 
 
+def float_eq(a, b, ep=0.001):
+    return abs(a - b) < ep
+
+
 class Matrix:
     def __init__(self, data):
         self.height = len(data)
@@ -17,7 +21,7 @@ class Matrix:
 
     def __eq__(self, value):
         if isinstance(value, Tuple) or isinstance(value, tuple):
-            return value == value
+            return self.as_tuple() == value
 
         if self.height != value.height or self.width != value.width:
             return False

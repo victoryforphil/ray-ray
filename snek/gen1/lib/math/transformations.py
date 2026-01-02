@@ -75,3 +75,14 @@ def RotationZ(r):
             [0, 0, 0, 1],
         ]
     )
+
+
+def Shearing(xy, xz, yx, yz, zx, zy):
+    return Matrix(
+        data=[
+            [0, 0, 1, 0],
+            [0, 0, 1, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1],
+        ]
+    )

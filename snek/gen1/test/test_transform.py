@@ -6,6 +6,7 @@ from snek.gen1.lib.math.transformations import (
     RotationY,
     RotationZ,
     Scale,
+    Shearing,
     Translation,
 )
 from snek.gen1.lib.math.tuple import Point, Vector
@@ -75,7 +76,7 @@ def test_scale_reflect():
 
 
 def test_rotate_x_axis():
-    pi = 3.1415
+    pi = math.pi
     p = Point(0.0, 1.0, 0.0)
     half_quater = RotationX(pi / 4.0)
     full_quater = RotationX(pi / 2.0)
@@ -87,7 +88,7 @@ def test_rotate_x_axis():
 
 
 def test_rotate_x_axis_inverse():
-    pi = 3.1415
+    pi = math.pi
     p = Point(0.0, 1.0, 0.0)
     half_quater = RotationX(pi / 4.0)
     inv = half_quater.inverse()
@@ -97,7 +98,7 @@ def test_rotate_x_axis_inverse():
 
 
 def test_rotate_y_axis():
-    pi = 3.1415
+    pi = math.pi
     p = Point(0.0, 0.0, 1.0)
     half_quater = RotationY(pi / 4.0)
     full_quater = RotationY(pi / 2.0)
@@ -109,12 +110,20 @@ def test_rotate_y_axis():
 
 
 def test_rotate_z_axis():
-    pi = 3.1415
+    pi = math.pi
     p = Point(0.0, 1.0, 0.0)
     half_quater = RotationZ(pi / 4.0)
     full_quater = RotationZ(pi / 2.0)
 
     half_p = half_quater * p
-    assert half_p == Point(math.sqrt(2.0) / 2.0, math.sqrt(2.0) / 2.0, 0.0)
+    assert half_p == Point(-math.sqrt(2.0) / 2.0, math.sqrt(2.0) / 2.0, 0.0)
     full_p = full_quater * p
     assert full_p == Point(-1.0, 0.0, 0.0)
+
+
+def test_sheer_x_y():
+    transform = Shearing(1, 0, 0, 0, 0, 0)
+    p = Point(2, 3, 4)
+    pt = transform * p
+
+    assert pt == Point(5, 3, 4)
