@@ -1,6 +1,13 @@
 import math
 
-from snek.gen1.lib.math.transformations import Reflect, RotationX, Scale, Translation
+from snek.gen1.lib.math.transformations import (
+    Reflect,
+    RotationX,
+    RotationY,
+    RotationZ,
+    Scale,
+    Translation,
+)
 from snek.gen1.lib.math.tuple import Point, Vector
 
 
@@ -87,3 +94,27 @@ def test_rotate_x_axis_inverse():
 
     half_p = inv * p
     assert half_p == Point(0.0, math.sqrt(2.0) / 2.0, -math.sqrt(2.0) / 2.0)
+
+
+def test_rotate_y_axis():
+    pi = 3.1415
+    p = Point(0.0, 0.0, 1.0)
+    half_quater = RotationY(pi / 4.0)
+    full_quater = RotationY(pi / 2.0)
+
+    half_p = half_quater * p
+    assert half_p == Point(math.sqrt(2.0) / 2.0, 0.0, math.sqrt(2.0) / 2.0)
+    full_p = full_quater * p
+    assert full_p == Point(1.0, 0.0, 0.0)
+
+
+def test_rotate_z_axis():
+    pi = 3.1415
+    p = Point(0.0, 1.0, 0.0)
+    half_quater = RotationZ(pi / 4.0)
+    full_quater = RotationZ(pi / 2.0)
+
+    half_p = half_quater * p
+    assert half_p == Point(math.sqrt(2.0) / 2.0, math.sqrt(2.0) / 2.0, 0.0)
+    full_p = full_quater * p
+    assert full_p == Point(-1.0, 0.0, 0.0)
