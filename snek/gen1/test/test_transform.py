@@ -125,5 +125,39 @@ def test_sheer_x_y():
     transform = Shearing(1, 0, 0, 0, 0, 0)
     p = Point(2, 3, 4)
     pt = transform * p
-
     assert pt == Point(5, 3, 4)
+
+
+def test_sheer_x_z():
+    transform = Shearing(0, 1, 0, 0, 0, 0)
+    p = Point(2, 3, 4)
+    pt = transform * p
+    assert pt == Point(6, 3, 4)
+
+
+def test_sheer_y_x():
+    transform = Shearing(0, 0, 1, 0, 0, 0)
+    p = Point(2, 3, 4)
+    pt = transform * p
+    assert pt == Point(2, 5, 4)
+
+
+def test_sheer_y_z():
+    transform = Shearing(0, 0, 0, 1, 0, 0)
+    p = Point(2, 3, 4)
+    pt = transform * p
+    assert pt == Point(2, 7, 4)
+
+
+def test_sheer_z_x():
+    transform = Shearing(0, 0, 0, 0, 1, 0)
+    p = Point(2, 3, 4)
+    pt = transform * p
+    assert pt == Point(2, 3, 6)
+
+
+def test_sheer_z_y():
+    transform = Shearing(0, 0, 0, 0, 0, 1)
+    p = Point(2, 3, 4)
+    pt = transform * p
+    assert pt == Point(2, 3, 7)
